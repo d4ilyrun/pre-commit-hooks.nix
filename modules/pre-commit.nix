@@ -125,12 +125,18 @@ let
                 default = cfg.default_stages;
                 defaultText = (lib.literalExpression or lib.literalExample) "default_stages";
               };
+            args =
+              mkOption {
+                type = types.listOf types.str;
+                description = "A list of arguments to pass on to the hook when executing it.";
+                default = [];
+              };
           };
         config =
           {
             raw =
               {
-                inherit (config) name entry language files stages types types_or pass_filenames;
+                inherit (config) name entry language files stages types types_or pass_filenames args;
                 id = name;
                 exclude = mergeExcludes config.excludes;
               };
